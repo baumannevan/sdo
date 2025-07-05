@@ -1,9 +1,9 @@
 const dbConfig = {
-    HOST: "localhost",
-    USER: "sdo_development", // Use a dedicated DB user with least privilege
-    PASSWORD: "password", // Store secrets in environment variables in production
-    DB: "sdo_development", // Database name
-    PORT: 3306,
+    HOST: process.env.DB_HOST || "localhost",
+    USER: process.env.DB_USER || "sdo_development",
+    PASSWORD: process.env.DB_PASSWORD || "password",
+    DB: process.env.DB_NAME || "sdo_development",
+    PORT: process.env.DB_PORT || 3306,
     dialect: "mysql",
     pool: {
         max: 5,

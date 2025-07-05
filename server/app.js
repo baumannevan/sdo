@@ -1,3 +1,7 @@
+// Load environment variables
+import dotenv from "dotenv";
+dotenv.config();
+
 // Main Express app setup
 import express from "express";
 import cors from "cors";
