@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "Please run from the root of the project"
+npm install
+cd client && npm install && cd ..
+
+
 # Prompt for MySQL root password
 echo "Enter MySQL root password:"
 read -s MYSQL_ROOT_PASSWORD
