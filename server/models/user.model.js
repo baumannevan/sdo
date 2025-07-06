@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
     role:{
         type: DataTypes.ENUM,
         values: ["Officer", "Intermediate Member", "Associate Member"],
-        allowNull: false,
+        allowNull: true,
     },
     password: {
       type: DataTypes.STRING,
