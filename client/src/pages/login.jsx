@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/login.css";
 
 export default function Login() {
@@ -25,6 +26,12 @@ export default function Login() {
         <button type="submit">
           Login
         </button>
+       <button>
+         <Link to="/register" className="register-link">
+          Sign-Up
+        </Link>
+       </button>
+        
       </form>
     </div>
   );

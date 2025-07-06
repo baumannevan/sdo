@@ -12,7 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 router.post("/register", async (req, res) => {
   try {
     const { firstName, lastName, email, password, role } = req.body;
-    if (!firstName || !lastName || !email || !password || !role) {
+    if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ error: "All fields are required." });
     }
     const existingUser = await db.User.findOne({ where: { email } });

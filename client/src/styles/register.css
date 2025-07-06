@@ -55,3 +55,7 @@
   color: green;
   margin-bottom: 12px;
 }
+
+button {
+    margin: 5px;
+}

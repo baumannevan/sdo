@@ -35,10 +35,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Sync database
-// This will create tables if they do not exist
-// Remove { force: true } in production!
-db.sequelize.sync().then(() => {
-    console.log("Synced db.");
+// This will drop and recreate tables to match the current Sequelize models
+// WARNING: { force: true } will delete all data in the tables!
+// This is just for the purposes of development, when database is no longer changing
+// this is we removed and seeders / maybe migrations will be used.
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Synced db with force: true (tables dropped and recreated).");
 });
 
 // Register API routes
