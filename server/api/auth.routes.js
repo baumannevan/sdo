@@ -6,8 +6,6 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 // Secret key for signing JWT tokens
 const JWT_SECRET = process.env.JWT_SECRET;
-
-
 // Register route
 router.post("/register", async (req, res) => {
   try {

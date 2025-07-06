@@ -13,7 +13,7 @@ export default (sequelize, DataTypes) => {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
-      },
+    },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -23,10 +23,11 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    role:{
-        type: DataTypes.ENUM,
-        values: ["Officer", "Intermediate Member", "Associate Member"],
-        allowNull: true,
+    role: {
+      type: DataTypes.ENUM,
+      values: ["Officer", "Intermediate Member", "Associate Member"],
+      allowNull: false,
+      defaultValue: "Associate Member", // TODO: ensure that the lowest is actually AM
     },
     password: {
       type: DataTypes.STRING,

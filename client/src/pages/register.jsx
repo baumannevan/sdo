@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/register.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -18,32 +19,35 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+const navigate = useNavigate();
+
+const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     setSuccess("");
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Registration failed");
-      setSuccess("Registration successful! You can now log in.");
-      setForm({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-      });
+        const res = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(form),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Registration failed");
+        setForm({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            role: null,
+        });
+        navigate("/home");
     } catch (err) {
-      setError(err.message);
+        setError(err.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
 return (
     <div className="register-container">
@@ -95,7 +99,7 @@ return (
                 {loading ? "Registering..." : "Register"}
             </button>
             <button>
-                <Link to="/login" classname="login-link">
+                <Link to="/login" className="login-link">
                 Already have an account?
                 </Link>
             </button>

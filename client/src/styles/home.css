@@ -1,0 +1,14 @@
+.home{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+
+}
+
+.side-nav {
+    width: 15%;
+    height: 100%;
+    margin: 5px;
+    background-color: red;
+}

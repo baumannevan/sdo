@@ -2,12 +2,17 @@ import dbConfig from "../config/db.config.js";
 import Sequelize from "sequelize";
 import UserModel from "./user.model.js";
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    pool: dbConfig.pool,
-    port: dbConfig.PORT,
-});
+const sequelize = new Sequelize(
+  dbConfig.development.database,
+  dbConfig.development.username,
+  dbConfig.development.password,
+  {
+    host: dbConfig.development.host,
+    dialect: dbConfig.development.dialect,
+    pool: dbConfig.development.pool,
+    port: dbConfig.development.port,
+  }
+);
  
 const db = {};
 db.Sequelize = Sequelize;

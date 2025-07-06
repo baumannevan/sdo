@@ -11,12 +11,17 @@ import UserModel from "./models/user.model.js";
 import authRoutes from "./api/auth.routes.js";
 
 // Initialize Sequelize
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    pool: dbConfig.pool,
-    port: dbConfig.PORT,
-});
+const sequelize = new Sequelize(
+  dbConfig.development.database,
+  dbConfig.development.username,
+  dbConfig.development.password,
+  {
+    host: dbConfig.development.host,
+    dialect: dbConfig.development.dialect,
+    pool: dbConfig.development.pool,
+    port: dbConfig.development.port,
+  }
+);
 
 // Initialize models
 const db = {};
@@ -35,12 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Sync database
-// This will drop and recreate tables to match the current Sequelize models
-// WARNING: { force: true } will delete all data in the tables!
-// This is just for the purposes of development, when database is no longer changing
-// this is we removed and seeders / maybe migrations will be used.
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Synced db with force: true (tables dropped and recreated).");
+db.sequelize.sync().then(() => {
+    console.log("Synced db.");
 });
 
 // Register API routes
