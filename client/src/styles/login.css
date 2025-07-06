@@ -27,20 +27,4 @@
   font-size: 1rem;
 }
 
-.login-form button {
-  width: 100%;
-  padding: 10px;
-  background: #646cff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
 
-.login-form button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-}

@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/home.css";
+import "../styles/topNav.css";
 import TopNav from "../components/topNav";
+
 
 export default function Home(){
     return(
-        <div className="home">
-        <TopNav/>
+        <div className="profile-container">
+            <TopNav/>
         </div>
         
     );
