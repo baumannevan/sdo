@@ -25,7 +25,7 @@ export default (sequelize, DataTypes) => {
     },
     role: {
       type: DataTypes.ENUM,
-      values: ["Officer", "Intermediate Member", "Associate Member"],
+      values: ["Officer", "Intermediate Member", "Associate Member"], // change to initiate member
       allowNull: false,
       defaultValue: "Associate Member", // TODO: ensure that the lowest is actually AM
     },
