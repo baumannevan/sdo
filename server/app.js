@@ -8,6 +8,7 @@ import cors from "cors";
 import dbConfig from "./config/db.config.js";
 import Sequelize from "sequelize";
 import UserModel from "./models/user.model.js";
+import EventModel from "./models/event.model.js";
 import authRoutes from "./api/auth.routes.js";
 
 // Initialize Sequelize
@@ -28,6 +29,8 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.User = UserModel(sequelize, Sequelize.DataTypes);
+db.Event = EventModel(sequelize, Sequelize.DataTypes);
+
 
 const app = express();
 
