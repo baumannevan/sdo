@@ -7,9 +7,9 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "sdo_development",
+    "username": "sdo_testing",
     "password": "password",
-    "database": "sdo_development",
+    "database": "sdo_testing",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "NODE_ENV=test node --experimental-vm-modules ./node_modules/.bin/jest --detectOpenHandles --forceExit",
     "start": "concurrently \"npm run client\" \"npm run server\"",
     "client": "cd client && npm run dev",
     "server": "cd server && node index.js"

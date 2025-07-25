@@ -2,9 +2,9 @@
 // These tests use Jest to directly test the authentication logic (password hashing, JWT creation/verification)
 
 //   npm test
-require('dotenv').config();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import 'dotenv/config';
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 

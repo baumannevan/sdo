@@ -17,6 +17,12 @@ CREATE DATABASE IF NOT EXISTS sdo_development;
 CREATE USER IF NOT EXISTS 'sdo_development'@'localhost' IDENTIFIED BY '$SDO_DEV_PASSWORD';
 GRANT ALL PRIVILEGES ON sdo_development.* TO 'sdo_development'@'localhost';
 FLUSH PRIVILEGES;
+
+CREATE DATABASE IF NOT EXISTS sdo_testing;
+CREATE USER IF NOT EXISTS 'sdo_testing'@'localhost' IDENTIFIED BY '$SDO_DEV_PASSWORD';
+GRANT ALL PRIVILEGES ON sdo_testing.* TO 'sdo_testing'@'localhost';
+FLUSH PRIVILEGES;
+
 EOF
 
 echo "MySQL user 'sdo_development' has been set up with privileges on database 'sdo_development'."

@@ -10,19 +10,26 @@ import Sequelize from "sequelize";
 import UserModel from "./models/user.model.js";
 import EventModel from "./models/event.model.js";
 import authRoutes from "./api/auth.routes.js";
+import eventRoutes from "./api/events.routes.js";
 
-// Initialize Sequelize
+
+// Use environment variable to select config
+const env = process.env.NODE_ENV || "development";
+const config = dbConfig[env];
+
 const sequelize = new Sequelize(
-  dbConfig.development.database,
-  dbConfig.development.username,
-  dbConfig.development.password,
+  config.database,
+  config.username,
+  config.password,
   {
-    host: dbConfig.development.host,
-    dialect: dbConfig.development.dialect,
-    pool: dbConfig.development.pool,
-    port: dbConfig.development.port,
+    host: config.host,
+    dialect: config.dialect,
+    pool: config.pool,
+    port: config.port,
   }
 );
+
+console.log(`Using database: ${config.database} (env: ${env})`);
 
 // Initialize models
 const db = {};
@@ -49,6 +56,8 @@ db.sequelize.sync().then(() => {
 
 // Register API routes
 app.use("/api/auth", authRoutes);
+app.use("/api/events", eventRoutes);
+
 
 // Test route
 app.get("/api/test", (req, res) => {

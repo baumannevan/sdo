@@ -7,8 +7,8 @@ let officerToken, memberToken, eventId;
 beforeAll(async () => {
   // Sync DB and create test users
   await db.sequelize.sync({ force: true });
-  await db.User.create({ username: "officer", password: "password", role: "Officer" });
-  await db.User.create({ username: "member", password: "password", role: "Member" });
+  await db.User.create({ firstName: "test", lastName: "test", password: "password", role: "Officer", email: "test2example.com@"});
+  await db.User.create({ firstName: "test", lastName: "member", password: "password", email: "test@example.com"});
 
   // Login to get tokens
   const officerRes = await request(app)
