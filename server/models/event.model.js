@@ -27,11 +27,6 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: false,
     },
-    required_for_role: {
-      type: DataTypes.ENUM,
-      values: ["Officer", "Intermediate Member", "Associate Member"],
-      allowNull: true, // optional: set to false if every event must be for a specific role
-    },
   });
 
   return Event;

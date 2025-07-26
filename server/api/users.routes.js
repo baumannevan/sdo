@@ -6,6 +6,8 @@ import { authenticateCookie, officerOnly } from "../utils/authMiddleware.js";
 
 const router = express.Router();
 
+// TODO: add an enpoint as an officer to update the role of other members
+
 
 // GET /users - Get list of all users (officer only)
 router.get("/", authenticateCookie, officerOnly, async (req, res) => {

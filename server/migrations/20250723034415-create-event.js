@@ -30,10 +30,6 @@ export default {
         allowNull: false,
         defaultValue: false,
       },
-      required_for_role: {
-        type: Sequelize.ENUM("Officer", "Intermediate Member", "Associate Member"),
-        allowNull: true,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
