@@ -42,6 +42,51 @@ describe("User Routes", () => {
     expect(res.body[0]).not.toHaveProperty("password");
   });
 
+  test("Officer can get dues info for a user", async () => {
+    const res = await request(app)
+      .get(`/api/users/${userId}/dues`)
+      .set("Cookie", officerCookies);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.id).toBe(userId);
+    expect(res.body).toHaveProperty("dues");
+    expect(typeof res.body.dues).toBe("number");
+  });
+
+
+  test("Officer can update dues info for a user", async () => {
+    const newDues = 123;
+    const res = await request(app)
+      .put(`/api/users/${userId}/dues`)
+      .set("Cookie", officerCookies)
+      .send({ dues: newDues });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.dues).toBe(newDues);
+  });
+
+  test("Member can get their own dues info", async () => {
+    const res = await request(app)
+      .get(`/api/users/${member.id}/dues`)
+      .set("Cookie", memberCookies);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.id).toBe(member.id);
+    expect(res.body).toHaveProperty("dues");
+  });
+
+  test("Member cannot get dues info for another user", async () => {
+    const res = await request(app)
+      .get(`/api/users/${officer.id}/dues`)
+      .set("Cookie", memberCookies);
+    expect(res.statusCode).toBe(403);
+  });
+
+  test("Member cannot update dues info for another user", async () => {
+    const res = await request(app)
+      .put(`/api/users/${userId}/dues`)
+      .set("Cookie", memberCookies)
+      .send({ dues: 999 });
+    expect(res.statusCode).toBe(403);
+  });
+
   test("Member cannot list all users", async () => {
     const res = await request(app)
       .get("/api/users")

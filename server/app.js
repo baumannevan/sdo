@@ -9,9 +9,14 @@ import dbConfig from "./config/db.config.js";
 import Sequelize from "sequelize";
 import UserModel from "./models/user.model.js";
 import EventModel from "./models/event.model.js";
+import RSVPModel from "./models/rsvp.model.js";
+import REQUIRED_ROLEModel from "./models/requiredroles.model.js";
+import ATTENDANCEModel from "./models/attendancesheet.model.js";
 import authRoutes from "./api/auth.routes.js";
 import eventRoutes from "./api/events.routes.js";
 import userRoutes from "./api/users.routes.js";
+import rsvpRoutes from "./api/rsvp.routes.js";
+
 
 
 
@@ -30,6 +35,12 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.User = UserModel(sequelize, Sequelize.DataTypes);
 db.Event = EventModel(sequelize, Sequelize.DataTypes);
+db.RSVP = RSVPModel(sequelize, Sequelize.DataTypes);
+db.ATTENDANCE = ATTENDANCEModel(sequelize, Sequelize.DataTypes);
+db.REQUIRED_ROLE = REQUIRED_ROLEModel(sequelize, Sequelize.DataTypes);
+
+
+
 
 
 const app = express();
@@ -46,7 +57,11 @@ app.use(express.urlencoded({ extended: true }));
 // Register API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/events", rsvpRoutes);
+
 app.use("/api/users", userRoutes);
+
+
 
 
 // Test route

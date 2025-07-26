@@ -5,6 +5,14 @@ export default (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
+    event_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     response: {
       type: DataTypes.ENUM("Yes", "No", "Maybe"),
       allowNull: false,
@@ -23,9 +31,10 @@ export default (sequelize, DataTypes) => {
 
     RSVP.belongsTo(models.User, {
       foreignKey: {
-        name: "memberID",
+        name: "user_id",
         allowNull: false,
       },
+      as: "User",
       onDelete: "CASCADE",
     });
   };

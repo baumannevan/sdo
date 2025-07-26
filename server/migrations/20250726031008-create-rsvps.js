@@ -5,7 +5,7 @@ export async function up(queryInterface, DataTypes) {
       autoIncrement: true,
       primaryKey: true,
     },
-    eventId: {
+    event_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
@@ -15,7 +15,7 @@ export async function up(queryInterface, DataTypes) {
       onDelete: "SET NULL",
       onUpdate: "CASCADE",
     },
-    memberID: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

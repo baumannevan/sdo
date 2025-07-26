@@ -8,6 +8,51 @@ const router = express.Router();
 
 // TODO: add an enpoint as an officer to update the role of other members
 
+// GET /users/:id/dues - Get dues info for user 
+// Officers can get any user's dues info; members can only get their own
+router.get("/:id/dues", authenticateCookie, async (req, res) => {
+  try {
+    const requestingUser = await db.User.findByPk(req.user.sub);
+    const targetUser = await db.User.findByPk(req.params.id, {
+      attributes: ["id", "firstName", "lastName", "email", "dues"]
+    });
+    if (!targetUser) return res.status(404).json({ error: "User not found" });
+    // Officer can get anyone's info, member only their own
+    if (requestingUser.role !== "Officer" && requestingUser.id !== targetUser.id) {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+    res.json({
+      id: targetUser.id,
+      firstName: targetUser.firstName,
+      lastName: targetUser.lastName,
+      email: targetUser.email,
+      dues: targetUser.dues
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PUT /users/:id/dues - Update dues info (officer only)
+router.put("/:id/dues", authenticateCookie, officerOnly, async (req, res) => {
+  try {
+    const { dues } = req.body;
+    const user = await db.User.findByPk(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+    if (typeof dues !== "undefined") user.dues = dues;
+    await user.save();
+    res.json({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      dues: user.dues
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 // GET /users - Get list of all users (officer only)
 router.get("/", authenticateCookie, officerOnly, async (req, res) => {
