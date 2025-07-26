@@ -5,12 +5,12 @@ export async function up(queryInterface, DataTypes) {
       autoIncrement: true,
       primaryKey: true,
     },
-    event_id: {
+    eventId: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: "Events",
-        key: "id", // assumes Events.id (not event_id)
+        key: "id",
       },
       onDelete: "SET NULL",
       onUpdate: "CASCADE",
@@ -19,8 +19,8 @@ export async function up(queryInterface, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "Users", // assumes Members are stored in Users table
-        key: "id",      // or "memberID" if you have a separate Members table
+        model: "Users", 
+        key: "id",
       },
       onDelete: "CASCADE",
       onUpdate: "CASCADE",

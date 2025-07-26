@@ -11,12 +11,8 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("AM", "IM", "Officer"),
+        type: DataTypes.ENUM("Officer", "Intermediate Member", "Associate Member"),
       allowNull: true,
-    },
-    requiresRsvp: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
   });
   return RequiredRole;

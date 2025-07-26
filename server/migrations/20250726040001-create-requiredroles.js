@@ -15,12 +15,8 @@ export async function up(queryInterface, DataTypes) {
       onDelete: "CASCADE",
     },
     role: {
-      type: DataTypes.ENUM("AM", "IM", "Officer"),
+        type: DataTypes.ENUM("Officer", "Intermediate Member", "Associate Member"),
       allowNull: true,
-    },
-    requiresRsvp: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
     createdAt: {
       allowNull: false,
