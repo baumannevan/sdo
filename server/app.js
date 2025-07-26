@@ -17,17 +17,8 @@ import eventRoutes from "./api/events.routes.js";
 const env = process.env.NODE_ENV || "development";
 const config = dbConfig[env];
 
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  {
-    host: config.host,
-    dialect: config.dialect,
-    pool: config.pool,
-    port: config.port,
-  }
-);
+const { database, username, password, ...sequelizeOptions } = config;
+const sequelize = new Sequelize(database, username, password, sequelizeOptions);
 
 console.log(`Using database: ${config.database} (env: ${env})`);
 
@@ -47,12 +38,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Sync database
-db.sequelize.sync().then(() => {
-    console.log("Synced db.");
-});
+app.use(express.urlencoded({ extended: true }));
 
 // Register API routes
 app.use("/api/auth", authRoutes);

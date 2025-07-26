@@ -4,6 +4,7 @@ dotenv.config();
 
 const config = {
   development: {
+    logging: false, // remember to turn back on 
     username: process.env.DB_USER || "sdo_development",
     password: process.env.DB_PASSWORD || "password",
     database: process.env.DB_NAME || "sdo_development",
@@ -18,6 +19,7 @@ const config = {
     },
   },
   test: {
+    logging: false,
     username: process.env.TEST_DB_USER || "sdo_testing",
     password: process.env.TEST_DB_PASSWORD || "password",
     database: process.env.TEST_DB_NAME || "sdo_testing",
@@ -32,6 +34,7 @@ const config = {
     },
   },
   production: {
+    logging: false, // remember to turn back on 
     username: process.env.PROD_DB_USER || "sdo_development",
     password: process.env.PROD_DB_PASSWORD || "password",
     database: process.env.PROD_DB_NAME || "sdo_development",

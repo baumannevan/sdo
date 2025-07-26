@@ -51,6 +51,13 @@ router.post("/login", async (req, res) => {
       JWT_SECRET,
       { expiresIn: "1d" }
     );
+    // Set JWT as a cookie for browser/test compatibility
+    res.cookie('_openresponse_session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
     res.json({ token });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -59,8 +66,17 @@ router.post("/login", async (req, res) => {
 
 // Middleware to verify JWT
 function authenticateToken(req, res, next) {
+  // Try to get token from Authorization header first
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  let token = authHeader && authHeader.split(" ")[1];
+  // If not found, try to get from cookie
+  if (!token && req.headers.cookie) {
+    const cookies = Object.fromEntries(req.headers.cookie.split(';').map(c => {
+      const [k, v] = c.trim().split('=');
+      return [k, v];
+    }));
+    token = cookies._openresponse_session;
+  }
   if (!token) return res.sendStatus(401);
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
