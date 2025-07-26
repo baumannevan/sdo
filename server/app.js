@@ -11,6 +11,8 @@ import UserModel from "./models/user.model.js";
 import EventModel from "./models/event.model.js";
 import authRoutes from "./api/auth.routes.js";
 import eventRoutes from "./api/events.routes.js";
+import userRoutes from "./api/users.routes.js";
+
 
 
 // Use environment variable to select config
@@ -44,6 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 // Register API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/users", userRoutes);
 
 
 // Test route
