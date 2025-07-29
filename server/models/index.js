@@ -32,7 +32,7 @@ db.RSVP = RSVPModel(sequelize, Sequelize.DataTypes);
 db.ATTENDANCE = ATTENDANCEModel(sequelize, Sequelize.DataTypes);
 db.REQUIRED_ROLE = REQUIRED_ROLEModel(sequelize, Sequelize.DataTypes);
 
-// Set up associations if defined
+// Set up associations
 if (db.User.associate) db.User.associate(db);
 if (db.Event.associate) db.Event.associate(db);
 if (db.RSVP.associate) db.RSVP.associate(db);
