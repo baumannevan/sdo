@@ -1,6 +1,30 @@
 .home{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100%;
     width: 100%;
+    align-items: center;
+
 }
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+
+}
+
+.Sidebar {
+    height: 100%;
+    width: 100%;
+    align-items:start;
+}
+
+.Events {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+

@@ -3,7 +3,7 @@
 echo "Please run from the root of the project"
 npm install
 cd client && npm install && cd ..
-
+cd core && npm install && cd ..
 
 # Prompt for MySQL root password
 echo "Enter MySQL root password:"

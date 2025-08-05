@@ -1,0 +1,33 @@
+.event-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background-color: #f9f9f9;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.event-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.event-date,
+.event-location,
+.event-role {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.event-role {
+  color: #333;
+  font-style: italic;
+}
