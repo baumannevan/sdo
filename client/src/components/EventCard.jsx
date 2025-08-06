@@ -1,27 +1,36 @@
 import React, { startTransition } from "react";
 import "../styles/EventCard.css"
+import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 
 // Card to display the name, date, location, and required for role of a single event given an event object
-export default function eventCard({event}) {
-    if (!event) return null;
-
+export default function eventCard({event, onDelete}) {
+  if (!event) return null;
+  const { user } = useAuth();
 
 return (
-    <div className="event-card">
-      <h3 className="event-name">{event.name}</h3>
-      <div className="event-details">
-        <p className="event-date">
-          <strong>Date:</strong> {new Date(event.date).toLocaleDateString()}
-        </p>
-        <p className="event-location">
-          <strong>Location:</strong> {event.location}
-        </p>
-        {event.requiredRole && (
-          <p className="event-role">
-            <strong>Required Role:</strong> {event.requiredRole}
-          </p>
-        )}
-      </div>
-    </div>
+<div className="event-card">
+  <div className="event-header">
+    <h3 className="event-name">{event.name}</h3>
+    {user?.role === "Officer" && (
+      <button className="event-delete" onClick={onDelete}></button>
+    )}
+  </div>
+
+  <div className="event-details">
+    <p className="event-date">
+      <strong>Date:</strong> {new Date(event.date).toLocaleDateString()}
+    </p>
+    <p className="event-location">
+      <strong>Location:</strong> {event.location}
+    </p>
+    {event.requiredRole && (
+      <p className="event-role">
+        <strong>Required Role:</strong> {event.requiredRole}
+      </p>
+    )}
+  </div>
+</div>
+
   );
 }
