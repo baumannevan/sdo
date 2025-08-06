@@ -6,6 +6,7 @@ export async function up(queryInterface, Sequelize) {
     firstName: 'test',
     lastName: 'user',
     email: 'test@example.com',
+    role: "Officer",
     password: await bcrypt.hash('password', 10),
     createdAt: new Date(),
     updatedAt: new Date()
