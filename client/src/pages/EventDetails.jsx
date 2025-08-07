@@ -25,7 +25,7 @@ export default function EventDetails() {
   return (
     <div>
       <TopNav/>
-      <button onClick={()=>navigate("home")}className="back-btn">Back</button>
+      <button onClick={()=>navigate("home")}className="back-btn"></button>
       <div className="event-page">
         <h1>{selectedEvent.name}</h1>
         <p><strong>Date:</strong> {new Date(selectedEvent.date).toLocaleDateString()}</p>

@@ -73,7 +73,11 @@ p {
 .back-btn {
     position: absolute;
     left: 20px;
-    width: fit-content;
-    height: fit-content;
+    width: 45px;
+    height: 45px;
     border-radius: 16px;
+    background-image: url('../image/left-arrow.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center
 }
