@@ -7,6 +7,7 @@ import Login from './pages/login.jsx';
 import Register from './pages/register.jsx';
 import Home from './pages/home.jsx';
 import Profile from './pages/profile.jsx';
+import EventDetails from "./pages/EventDetails.jsx";
 
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import GuestRoute from './components/GuestRoute.jsx';
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/events/:id" element={<ProtectedRoute><EventDetails /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

@@ -1,0 +1,79 @@
+.event-page {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.event-page h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.event-page p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.event-actions,
+.rsvp-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.rsvp-buttons {
+  justify-content: center;
+  margin-top: 15px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.delete-btn,
+.cancel-rsvp-btn { background: #e74c3c; }
+.delete-btn:hover,
+.cancel-rsvp-btn:hover { background: #c0392b; }
+
+.edit-btn { background: #3498db; }
+.edit-btn:hover { background: #2980b9; }
+
+.rsvp-btn { background: #2ecc71; }
+.rsvp-btn:hover { background: #27ae60; }
+
+.rsvp-section {
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+h2 {  text-align: center;
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+p { 
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.back-btn {
+    position: absolute;
+    left: 20px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 16px;
+}
