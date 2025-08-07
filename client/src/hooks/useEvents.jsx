@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Axios instance with credentials so cookies are sent automatically
 const api = axios.create({
-  baseURL: "/api/events",
+  baseURL: "/api/",
   withCredentials: true, // ensures cookie-based auth is sent
 });
 
@@ -17,7 +17,7 @@ export function useEvents() {
   const fetchEvents = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.get("/");
+      const res = await api.get("/events/");
       setEvents(res.data);
     } catch (err) {
       setError(err.response?.data?.error || err.message);
@@ -30,7 +30,7 @@ export function useEvents() {
   const fetchEventById = useCallback(async (id) => {
     setLoading(true);
     try {
-      const res = await api.get(`/${id}`);
+      const res = await api.get(`events/${id}`)
       setSelectedEvent(res.data);
     } catch (err) {
       setError(err.response?.data?.error || err.message);
@@ -42,7 +42,7 @@ export function useEvents() {
   // POST /events - create new event (officer only)
   const createEvent = useCallback(async (newEvent) => {
     try {
-      const res = await api.post("/", newEvent);
+      const res = await api.post("events/", newEvent);
       setEvents((prev) => [...prev, res.data]); // update local state
     } catch (err) {
       setError(err.response?.data?.error || err.message);
@@ -52,7 +52,7 @@ export function useEvents() {
   // PUT /events/:id - update event (officer only)
   const updateEvent = useCallback(async (id, updatedData) => {
     try {
-      const res = await api.put(`/${id}`, updatedData);
+      const res = await api.put(`events/${id}`, updatedData);
       setEvents((prev) =>
         prev.map((event) => (event.id === id ? res.data : event))
       );
@@ -64,7 +64,7 @@ export function useEvents() {
   // DELETE /events/:id - delete event (officer only)
   const deleteEvent = useCallback(async (id) => {
     try {
-      await api.delete(`/${id}`);
+      await api.delete(`events/${id}`);
       setEvents((prev) => prev.filter((event) => event.id !== id));
     } catch (err) {
       setError(err.response?.data?.error || err.message);

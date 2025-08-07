@@ -1,30 +1,52 @@
 import React, { useState } from "react";
 import "../styles/CreateEventModal.css"; 
-import { useEvents } from "../hooks/useEvents";
 
-export default function CreateEventModal({ isOpen, onClose }) {
-  const { createEvent, error, loading } = useEvents();
+export default function CreateEventModal({ isOpen, onClose, createEvent }) {
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     date: "",
     location: "",
-    requiredRole: "",
+    requiredRole: [],
   });
 
   if (!isOpen) return null; 
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+
+    if (type === "checkbox" && name === "requiredRole") {
+      // For checkboxes, toggle value in the array
+      setFormData((prev) => {
+        if (checked) {
+          // Add role
+          return {
+            ...prev,
+            requiredRole: [...prev.requiredRole, value],
+          };
+        } else {
+          // Remove role
+          return {
+            ...prev,
+            requiredRole: prev.requiredRole.filter((r) => r !== value),
+          };
+        }
+      });
+    } else {
+      // For other inputs (text, date, textarea)
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form:", formData);
     try {
       await createEvent(formData);
-      console.log("Event created successfully");
       onClose();
     } catch (err) {
       console.error("Error creating event:", err);
@@ -56,8 +78,20 @@ export default function CreateEventModal({ isOpen, onClose }) {
           </label>
 
           <label>
-            Required Role:
-            <input type="text" name="requiredRole" value={formData.requiredRole} onChange={handleChange} />
+            <div className="role-checkboxes">
+              {["Officer", "Intermediate Member", "Associate Member"].map((role) => (
+                <label key={role} className="role-checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="requiredRole"
+                    value={role}
+                    checked={formData.requiredRole.includes(role)}
+                    onChange={handleChange}
+                  />
+                  {role}
+                </label>
+              ))}
+            </div>
           </label>
 
           <div className="modal-actions">

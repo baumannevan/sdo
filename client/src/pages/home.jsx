@@ -8,7 +8,7 @@ import { useEvents } from "../hooks/useEvents";
 import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
-    const { events, loading, error, fetchEvents, deleteEvent} = useEvents(); // include fetchEvents
+    const { events, loading, error, fetchEvents, deleteEvent, createEvent} = useEvents(); // include fetchEvents
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {user} = useAuth();
     
@@ -48,9 +48,9 @@ export default function Home() {
             
             <CreateEventModal 
                 isOpen={isModalOpen} 
+                createEvent={createEvent}
                 onClose={() => {
                     setIsModalOpen(false);
-                    fetchEvents(); // refresh after closing modal
                 }} 
             />
         </div>

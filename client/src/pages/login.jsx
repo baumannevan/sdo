@@ -52,7 +52,10 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
+    
+   <div>
+    <div className="logo">ΣΔΩ</div>
+     <div className="login-container">
       <h2>Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
         <div>
@@ -85,5 +88,6 @@ export default function Login() {
         </button>
       </form>
     </div>
+   </div>
   );
 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const TopNav = () => (
     <div className="top-nav">
-        <div>sigma delta omega</div>
+        <div className="logo">ΣΔΩ</div>
         <button type="button" className="profile">
             <Link to="/profile">Profile</Link>
         </button>
