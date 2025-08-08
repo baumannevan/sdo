@@ -6,6 +6,7 @@ import EventCard from "../components/EventCard";
 import CreateEventModal from "../components/CreateEventModal";
 import { useEvents } from "../hooks/useEvents";
 import { useAuth } from "../context/AuthContext";
+import SidebarNav from "../components/SidebarNav";
 
 export default function Home() {
     const { events, loading, error, fetchEvents, deleteEvent, createEvent} = useEvents(); 
@@ -20,9 +21,7 @@ export default function Home() {
             <TopNav />
 
             <div className="container">
-                <div className="Sidebar">
-                    <h1>SIDEBAR</h1>
-                </div>       
+                  <SidebarNav />     
 
                 <div className="Events-container">
                     <div className="Events-header">

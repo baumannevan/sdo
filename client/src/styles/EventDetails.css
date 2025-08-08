@@ -59,11 +59,17 @@ button {
   text-align: center;
 }
 
-h2 {  text-align: center;
-    margin-bottom: 5px;
-    font-size: 1.4rem;
-    color: #333;
+h2 {
+
+  margin-bottom: 5px;
+  font-size: 1.4rem;
+  color: #333;
 }
+
+.officer-title {
+  text-align: center;
+}
+
 
 p { 
     margin-bottom: 15px;

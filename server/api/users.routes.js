@@ -54,8 +54,33 @@ router.put("/:id/dues", authenticateCookie, officerOnly, async (req, res) => {
 });
 
 
-// GET /users - Get list of all users (officer only)
-router.get("/", authenticateCookie, officerOnly, async (req, res) => {
+// PUT /users/:id/role - Update role info (officer only)
+router.put("/:id/role", authenticateCookie, officerOnly, async (req, res) => {
+  try {
+    const { role } = req.body;
+
+    // Validate role input (optional but recommended)
+    const validRoles = ["Officer", "Intermediate Member", "Associate Member"];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({ error: "Invalid role specified" });
+    }
+
+    // Find the user by ID
+    const user = await db.User.findByPk(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    // Update the user's role
+    user.role = role;
+    await user.save();
+
+    res.status(200).json({ message: "Role updated successfully", user });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /users - Get list of all users
+router.get("/", authenticateCookie, async (req, res) => {
   try {
     const users = await db.User.findAll({ attributes: { exclude: ["password"] } });
     res.json(users);

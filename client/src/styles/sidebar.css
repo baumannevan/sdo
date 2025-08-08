@@ -1,0 +1,10 @@
+.sidebar {
+  width: 200px;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.sidebar h2 {
+  margin: 16px 0;
+  cursor: pointer;
+}

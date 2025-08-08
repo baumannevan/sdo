@@ -92,7 +92,7 @@ export default function EventDetails() {
         {user?.role === "Officer" && (
           <>
             <hr /> 
-            <h2>Officer Options</h2>
+            <h2 className="officer-title">Officer Options</h2>
             <div className="event-actions">
               <button className="delete-btn" onClick={async () => {deleteEvent(selectedEvent.id); navigate("/home")}}>
                 Delete Event
