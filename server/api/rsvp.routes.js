@@ -8,40 +8,88 @@ const router = express.Router();
 router.post("/:id/rsvp", authenticateCookie, async (req, res) => {
   try {
     const event = await db.Event.findByPk(req.params.id);
-    if (!event) return res.status(404).json({ error: "Event not found" });
     const { response } = req.body;
-    if (!["Yes", "No", "Maybe"].includes(response)) {
-      return res.status(400).json({ error: "Invalid response" });
-    }
-    // Upsert RSVP for this user/event
-    let rsvp = await db.RSVP.findOne({ where: { event_id: event.id, user_id: req.user.sub } });
+
+    const userId = req.user.id;
+
+    // Upsert RSVP for this user and event
+    let rsvp = await db.RSVP.findOne({
+      where: {
+        event_id: event.id,
+        user_id: userId,
+      },
+    });
+
     if (rsvp) {
       rsvp.response = response;
       await rsvp.save();
     } else {
-      rsvp = await db.RSVP.create({ event_id: event.id, user_id: req.user.sub, response });
+      rsvp = await db.RSVP.create({
+        event_id: event.id,
+        user_id: userId,
+        response,
+      });
     }
+
     res.status(201).json(rsvp);
   } catch (err) {
-    console.error('RSVP POST error:', err);
+    console.error("RSVP POST error:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// GET /events/:id/rsvps - Get list of RSVPs for event (officer only)
-router.get("/:id/rsvps", authenticateCookie, officerOnly, async (req, res) => {
+
+// GET /events/:id/rsvps - Officers get all RSVPs, Members get only their own
+router.get("/:id/rsvps", authenticateCookie, async (req, res) => {
   try {
     const event = await db.Event.findByPk(req.params.id);
     if (!event) return res.status(404).json({ error: "Event not found" });
-    const rsvps = await db.RSVP.findAll({
-      where: { event_id: event.id },
-      include: [{ model: db.User, as: "User", attributes: ["id", "firstName", "lastName", "email"] }]
-    });
-    res.json(rsvps);
+
+    if (req.user.role === "Officer") {
+  // Get all users
+  const users = await db.User.findAll({
+    attributes: ["id", "firstName", "lastName", "email"],
+  });
+
+  // Get all RSVPs for this event including User association
+  const rsvps = await db.RSVP.findAll({
+    where: { event_id: event.id },
+    include: [{ model: db.User, as: "User", attributes: ["id", "firstName", "lastName", "email"] }],
+  });
+
+  // Map RSVPs by user_id for quick lookup
+  const rsvpMap = new Map(rsvps.map(r => [r.user_id, r.get({ plain: true })]));
+
+  // Combine all users with their RSVP or default 'No Response'
+  const combined = users.map(user => {
+    const rsvp = rsvpMap.get(user.id);
+    if (rsvp) {
+      return rsvp; // already includes User fields
+    } else {
+      return {
+        rsvpID: null,
+        event_id: event.id,
+        user_id: user.id,
+        response: "No Response",
+        User: user.get({ plain: true }), // ensure plain object
+      };
+    }
+  });
+
+  res.json(combined);
+} else {
+      // Member: get only their own RSVP for the event
+      const rsvps = await db.RSVP.findAll({
+        where: { event_id: event.id, user_id: req.user.id },
+        include: [{ model: db.User, as: "User", attributes: ["id", "firstName", "lastName", "email"] }]
+      });
+      res.json(rsvps);
+    }
   } catch (err) {
-    console.error('RSVP GET error:', err);
+    console.error("RSVP GET error:", err);
     res.status(500).json({ error: err.message });
   }
 });
+
 
 export default router;
