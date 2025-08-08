@@ -70,16 +70,21 @@ p {
     color: #555;
 }
 
+.back-btn-container {
+  position: relative;
+  height: 0;
+}
+
 .back-btn {
-    position: absolute;
-    left: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 16px;
-    background-image: url('../image/left-arrow.png');
-    background-size: cover; 
-    background-repeat: no-repeat;
-    background-position: center
+  position: absolute;
+  left: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 16px;
+  background-image: url('../image/left-arrow.png');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center
 }
 
 

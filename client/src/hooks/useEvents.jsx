@@ -86,5 +86,7 @@ export function useEvents() {
     createEvent,
     updateEvent,
     deleteEvent,
+    setSelectedEvent,
+    
   };
 }

@@ -20,13 +20,7 @@ export function useRSVP() {
     try {
       const res = await api.get(`/events/${eventId}/rsvps`);
       setRsvpList(res.data);
-
-      // If it's just the user's RSVP, store it separately
-      if (res.data.length === 1) {
-        setUserRsvp(res.data[0]);
-      } else {
-        setUserRsvp(null); // officer view
-      }
+      setUserRsvp(res.data[0]);      
 
       setError(null);
     } catch (err) {

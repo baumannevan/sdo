@@ -1,7 +1,8 @@
 * ensure that officer authenticate responds with an error msg that can be display to the user
 * create tests for auth.routes.js api/auth/me
 * create endpoints for required roles. add to the eventCard display
-* rewrite tests for rsvp get
+* rewrite tests for rsvp get and post
+* filter rsvp responses based off of response
 
 == HOME ==
 * sort events on dashboard to show events based on proximity to current date

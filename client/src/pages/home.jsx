@@ -8,7 +8,7 @@ import { useEvents } from "../hooks/useEvents";
 import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
-    const { events, loading, error, fetchEvents, deleteEvent, createEvent} = useEvents(); // include fetchEvents
+    const { events, loading, error, fetchEvents, deleteEvent, createEvent} = useEvents(); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {user} = useAuth();
     

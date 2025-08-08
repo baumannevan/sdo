@@ -6,6 +6,8 @@ import { useAuth } from "../context/AuthContext";
 import "../styles/EventDetails.css";
 import TopNav from "../components/topNav";
 import { useNavigate } from "react-router-dom";
+import EditEventModal from "../components/editEvent.jsx"
+
 
 
 
@@ -14,12 +16,14 @@ export default function EventDetails() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [editingRSVP, setEditingRSVP] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
+  const { selectedEvent, fetchEventById, loading, error, deleteEvent, updateEvent, setSelectedEvent } = useEvents();
+  const {rsvpList,userRsvp, loading: rsvpLoading, error: rsvpError, fetchRSVPs, createRSVP} = useRSVP();
 
-  const { selectedEvent, fetchEventById, loading, error, deleteEvent } = useEvents();
-  const {rsvpList,userRsvp,  loading: rsvpLoading, error: rsvpError, fetchRSVPs, createRSVP, cancelRSVP} = useRSVP();
-
-  console.log(rsvpList)
+  console.log("userRsvp: ", userRsvp)
+  console.log("editingRsvp: ", editingRSVP)
 
   useEffect(() => {
     fetchEventById(id); // fetch event when page loads
@@ -38,7 +42,10 @@ export default function EventDetails() {
   return (
     <div>
       <TopNav/>
-      <button onClick={()=>navigate("home")}className="back-btn"></button>
+      <div className="back-btn-container">
+      <button onClick={()=>navigate("home")}className="back-btn"></button>        
+      </div>
+      
       <div className="event-page">
         <h1>{selectedEvent.name}</h1>
         <p><strong>Date:</strong> {new Date(selectedEvent.date).toLocaleDateString()}</p>
@@ -87,10 +94,10 @@ export default function EventDetails() {
             <hr /> 
             <h2>Officer Options</h2>
             <div className="event-actions">
-              <button className="delete-btn" onClick={() => deleteEvent(selectedEvent.id)}>
+              <button className="delete-btn" onClick={async () => {deleteEvent(selectedEvent.id); navigate("/home")}}>
                 Delete Event
               </button>
-              <button className="edit-btn">Edit Event</button>
+              <button className="edit-btn" onClick={() => setIsModalOpen(true)}>Edit Event</button>
             </div>
 
             {/* RSVP List Table */}
@@ -123,6 +130,17 @@ export default function EventDetails() {
         )}
 
       </div>
+
+      <EditEventModal 
+      isOpen={isModalOpen} 
+      eventToEdit={selectedEvent}
+      updateEvent={updateEvent}
+      onClose={() => setIsModalOpen(false)}
+      onSave={async (eventId, updatedData) => {
+        setSelectedEvent(updatedData); 
+        setIsModalOpen(false);
+      }}
+      />
     </div>
   );
 }
