@@ -30,14 +30,14 @@ db.User = UserModel(sequelize, Sequelize.DataTypes);
 db.Event = EventModel(sequelize, Sequelize.DataTypes);
 db.RSVP = RSVPModel(sequelize, Sequelize.DataTypes);
 db.ATTENDANCE = ATTENDANCEModel(sequelize, Sequelize.DataTypes);
-db.REQUIRED_ROLE = REQUIRED_ROLEModel(sequelize, Sequelize.DataTypes);
+db.RequiredRole = REQUIRED_ROLEModel(sequelize, Sequelize.DataTypes);
 
 // Set up associations
 if (db.User.associate) db.User.associate(db);
 if (db.Event.associate) db.Event.associate(db);
 if (db.RSVP.associate) db.RSVP.associate(db);
 if (db.ATTENDANCE && db.ATTENDANCE.associate) db.ATTENDANCE.associate(db);
-if (db.REQUIRED_ROLE && db.REQUIRED_ROLE.associate) db.REQUIRED_ROLE.associate(db);
+if (db.RequiredRole && db.RequiredRole.associate) db.RequiredRole.associate(db);
 
 
 export default db;

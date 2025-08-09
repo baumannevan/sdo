@@ -29,5 +29,14 @@ export default (sequelize, DataTypes) => {
     },
   });
 
+Event.associate = (models) => {
+  Event.hasMany(models.RequiredRole, {
+    foreignKey: "eventId",
+    as: "requiredRoles",
+    onDelete: "CASCADE",
+  });
+};
+
+
   return Event;
 };

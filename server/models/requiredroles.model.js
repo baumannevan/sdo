@@ -15,5 +15,18 @@ export default (sequelize, DataTypes) => {
       allowNull: true,
     },
   });
+
+RequiredRole.associate = (models) => {
+  RequiredRole.belongsTo(models.Event, {
+    foreignKey: {
+      name: "eventId",
+      allowNull: false,
+    },
+    as: "event",
+    onDelete: "CASCADE",
+  });
+};
+
+
   return RequiredRole;
 };

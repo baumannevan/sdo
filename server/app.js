@@ -34,12 +34,16 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.User = UserModel(sequelize, Sequelize.DataTypes);
-db.Event = EventModel(sequelize, Sequelize.DataTypes);
 db.RSVP = RSVPModel(sequelize, Sequelize.DataTypes);
 db.ATTENDANCE = ATTENDANCEModel(sequelize, Sequelize.DataTypes);
-db.REQUIRED_ROLE = REQUIRED_ROLEModel(sequelize, Sequelize.DataTypes);
+db.RequiredRole = REQUIRED_ROLEModel(sequelize, Sequelize.DataTypes);
+db.Event = EventModel(sequelize, Sequelize.DataTypes);
 
-
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+})
 
 
 

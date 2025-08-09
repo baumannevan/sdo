@@ -23,7 +23,9 @@ export default function EventDetails() {
   
   useEffect(() => {
     fetchEventById(id); // fetch event when page loads
-    fetchRSVPs(id);
+    fetchRSVPs(id); // ensurs that all data on page is correct this is slow
+                    // it would be better to modify the local copy instead of requry
+                    // I am just running out of time
   }, [id, fetchEventById, fetchRSVPs]);
 
   const handleRSVP = async (response) => {
@@ -48,12 +50,14 @@ export default function EventDetails() {
         <p><strong>Date:</strong> {new Date(selectedEvent.date).toLocaleDateString()}</p>
         <p><strong>Location:</strong> {selectedEvent.location}</p>
         <p><strong>Description:</strong> {selectedEvent.description}</p>
-        {selectedEvent.requiredRole && (
-          <p><strong>Required Role:</strong> {selectedEvent.requiredRole}</p>
-        )}
-        {selectedEvent.RSVP && (
-          <p><strong>RSVP Status:</strong> {selectedEvent.RSVPStatus}</p>
-        )}
+        <p>
+    <strong>Required Roles:</strong>{" "}
+    {selectedEvent.requiredRoles && selectedEvent.requiredRoles.length > 0
+      ? selectedEvent.requiredRoles.map(r => r.role || r).join(", ")
+      : "None"}
+  </p>
+
+
         <hr></hr>
         {/* RSVP Section */}
         <div className="rsvp-section">
