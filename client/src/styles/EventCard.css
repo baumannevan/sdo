@@ -46,7 +46,8 @@
 
 .event-date,
 .event-location,
-.event-role {
+.event-role,
+.requires-rsvp {
   margin: 0;
   font-size: 1.25rem;
 }

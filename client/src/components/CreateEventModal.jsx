@@ -9,7 +9,7 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
     date: "",
     location: "",
     requiredRole: [],
-    requires_rsvp: false,  // added here
+    rsvp_required: false,
   });
 
   if (!isOpen) return null; 
@@ -31,10 +31,10 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
           };
         }
       });
-    } else if (type === "checkbox" && name === "requires_rsvp") {
+    } else if (type === "radio" && name === "rsvp_required") {
       setFormData((prev) => ({
         ...prev,
-        requires_rsvp: checked,
+        rsvp_required: checked,
       }));
     } else {
       setFormData((prev) => ({
@@ -47,6 +47,7 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("formData: ", formData)
       await createEvent(formData);
       onClose();
     } catch (err) {
@@ -83,8 +84,8 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
           Requires RSVP
           <input
             type="radio"
-            name="requires_rsvp"
-            checked={formData.requires_rsvp}
+            name="rsvp_required"
+            checked={formData.rsvp_required}
             onChange={handleChange}
           />
         </label>

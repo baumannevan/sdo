@@ -37,6 +37,11 @@ return (
     <p className="event-location">
       <strong>Location:</strong> {event.location}
     </p>
+    {event.rsvp_required && (
+      <p className="requires-rsvp">
+      <strong>Requires Rsvp</strong>
+      </p>
+    )}
     {event.requiredRole && (
       <p className="event-role">
         <strong>Required Role:</strong> {event.requiredRole}

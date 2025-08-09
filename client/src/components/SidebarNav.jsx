@@ -4,7 +4,8 @@ import "../styles/sidebar.css"; // Optional: separate sidebar styles
 
 export default function SidebarNav() {
   return (
-    <div className="sidebar">
+    <div className="sidebar-container">
+      <div className="sidebar">
       <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
         <h2>Events</h2>
       </Link>
@@ -16,5 +17,6 @@ export default function SidebarNav() {
         <h2>People</h2>
       </Link>
     </div>
-  );e
+    </div>
+  );
 }

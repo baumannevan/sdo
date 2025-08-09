@@ -1,5 +1,5 @@
 // src/hooks/useRSVP.js
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 
 
@@ -45,7 +45,12 @@ const createRSVP = useCallback(async (eventId, response) => {
   }
 }, [])
 
-  return {
+// Auto-fetch RSVPs when hook mounts
+  useEffect(() => {
+    fetchRSVPs();
+  }, [fetchRSVPs]);
+  
+    return {
     rsvpList,
     userRsvp,
     loading,

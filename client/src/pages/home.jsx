@@ -21,7 +21,8 @@ export default function Home() {
             <TopNav />
 
             <div className="container">
-                  <SidebarNav />     
+
+                <SidebarNav /> 
 
                 <div className="Events-container">
                     <div className="Events-header">

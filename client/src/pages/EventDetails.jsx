@@ -23,6 +23,7 @@ export default function EventDetails() {
     updateEvent,
     setSelectedEvent,
   } = useEvents();
+  
   const {
     rsvpList,
     userRsvp,
@@ -43,7 +44,9 @@ export default function EventDetails() {
     setEditingRSVP(false); // hide RSVP form again
   };
 
-  if (loading) return <p>Loading event details...</p>;
+  if (loading || rsvpLoading || userRsvp == null) { // catches null and undefined
+    return <p>Loading event details...</p>;
+  }
   if (error) return <p>Error: {error}</p>;
   if (!selectedEvent) return <p>No event found.</p>;
 
@@ -79,7 +82,7 @@ export default function EventDetails() {
             <hr />
             <h2>RSVP</h2>
 
-            {!userRsvp || editingRSVP ? (
+            {userRsvp.response == 'No Response'|| editingRSVP ? (
               <>
                 <p>Will you be attending this event?</p>
                 <div className="rsvp-buttons">
