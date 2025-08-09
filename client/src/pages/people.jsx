@@ -1,30 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TopNav from "../components/topNav";
 import SidebarNav from "../components/SidebarNav";
 import { useUsers } from "../hooks/useUsers";
+import { useAuth } from "../context/AuthContext";
 
-import "../styles/people.css"; 
+import "../styles/people.css";
 
 export default function UserList() {
   const { users, fetchUsers, updateUserRole } = useUsers();
-
-  const [currentUser, setCurrentUser] = useState(null);
+  const { user: currentUser } = useAuth(); 
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedRole, setEditedRole] = useState("");
-
-  // Fetch current user info to check role
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const res = await fetch("/api/auth/me", { credentials: "include" });
-        const user = await res.json();
-        setCurrentUser(user);
-      } catch (err) {
-        console.error("Failed to get current user");
-      }
-    };
-    fetchCurrentUser();
-  }, []);
 
   const roleOptions = ["Officer", "Intermediate Member", "Associate Member"];
 
@@ -41,7 +27,7 @@ export default function UserList() {
   const saveRole = async (userId) => {
     if (editedRole && editedRole !== users.find(u => u.id === userId).role) {
       await updateUserRole(userId, editedRole);
-      fetchUsers();
+      await fetchUsers();
     }
     cancelEditing();
   };
@@ -63,12 +49,12 @@ export default function UserList() {
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
-                <tr key={user.id}>
-                  <td>{`${user.firstName} ${user.lastName}`}</td>
-                  <td>{user.email}</td>
+              {users.map(u => (
+                <tr key={u.id}>
+                  <td>{`${u.firstName} ${u.lastName}`}</td>
+                  <td>{u.email}</td>
                   <td>
-                    {editingUserId === user.id ? (
+                    {editingUserId === u.id ? (
                       <select
                         value={editedRole}
                         onChange={(e) => setEditedRole(e.target.value)}
@@ -78,17 +64,15 @@ export default function UserList() {
                         ))}
                       </select>
                     ) : (
-                      user.role
+                      u.role
                     )}
                   </td>
                   {currentUser?.role === "Officer" && (
                     <td>
-                      {editingUserId === user.id ? (
-                        <>
-                          <button onClick={() => saveRole(user.id)}>Save</button>
-                        </>
+                      {editingUserId === u.id ? (
+                        <button onClick={() => saveRole(u.id)}>Save</button>
                       ) : (
-                        <button onClick={() => startEditing(user)}>Edit</button>
+                        <button onClick={() => startEditing(u)}>Edit</button>
                       )}
                     </td>
                   )}
