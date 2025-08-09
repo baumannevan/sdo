@@ -13,10 +13,14 @@ export default function RequiredForMe() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useAuth();
 
+  
+  
   const filteredEvents = events.filter(event =>
-    event.requiredRoles && event.requiredRoles.some(rr => rr.role === user.role)
-  );
+  event.requiredRoles?.includes(user?.role)
+);
 
+  console.log("Events: ", events, "user role: ", user.role, "filtered Events: ", filteredEvents)
+  
   if (loading) return <p>Loading events...</p>;
   if (error) return <p>Error: {error}</p>;
 
