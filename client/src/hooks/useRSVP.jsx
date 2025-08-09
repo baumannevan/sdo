@@ -19,8 +19,8 @@ export function useRSVP() {
     setLoading(true);
     try {
       const res = await api.get(`/events/${eventId}/rsvps`);
-      setRsvpList(res.data);
-      setUserRsvp(res.data[0]);      
+      setRsvpList(res.data.allRsvps);
+      setUserRsvp(res.data.userRsvp);    
 
       setError(null);
     } catch (err) {

@@ -9,8 +9,6 @@ import { useNavigate } from "react-router-dom";
 import EditEventModal from "../components/editEvent.jsx"
 
 
-
-
 export default function EventDetails() {
   const { id } = useParams(); // get :id from URL
   const { user } = useAuth();
@@ -22,9 +20,7 @@ export default function EventDetails() {
   const { selectedEvent, fetchEventById, loading, error, deleteEvent, updateEvent, setSelectedEvent } = useEvents();
   const {rsvpList,userRsvp, loading: rsvpLoading, error: rsvpError, fetchRSVPs, createRSVP} = useRSVP();
 
-  console.log("userRsvp: ", userRsvp)
-  console.log("editingRsvp: ", editingRSVP)
-
+  
   useEffect(() => {
     fetchEventById(id); // fetch event when page loads
     fetchRSVPs(id);
@@ -32,6 +28,7 @@ export default function EventDetails() {
 
   const handleRSVP = async (response) => {
     await createRSVP(id, response);
+    fetchRSVPs(id);
     setEditingRSVP(false); // hide RSVP form again
   };
 
