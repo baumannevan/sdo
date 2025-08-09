@@ -29,14 +29,14 @@ db.sequelize = sequelize;
 db.User = UserModel(sequelize, Sequelize.DataTypes);
 db.Event = EventModel(sequelize, Sequelize.DataTypes);
 db.RSVP = RSVPModel(sequelize, Sequelize.DataTypes);
-db.ATTENDANCE = ATTENDANCEModel(sequelize, Sequelize.DataTypes);
+db.AttendanceSheet  = ATTENDANCEModel(sequelize, Sequelize.DataTypes);
 db.RequiredRole = REQUIRED_ROLEModel(sequelize, Sequelize.DataTypes);
 
 // Set up associations
 if (db.User.associate) db.User.associate(db);
 if (db.Event.associate) db.Event.associate(db);
 if (db.RSVP.associate) db.RSVP.associate(db);
-if (db.ATTENDANCE && db.ATTENDANCE.associate) db.ATTENDANCE.associate(db);
+if (db.AttendanceSheet && db.AttendanceSheet.associate) db.AttendanceSheet.associate(db);
 if (db.RequiredRole && db.RequiredRole.associate) db.RequiredRole.associate(db);
 
 

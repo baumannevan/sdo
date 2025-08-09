@@ -63,21 +63,39 @@ router.post("/", authenticateCookie, officerOnly, async (req, res) => {
     // Create event first
     const event = await db.Event.create(eventData);
 
-    // Create RequiredRole entries if provided
     if (Array.isArray(requiredRole) && requiredRole.length > 0) {
+      // Create RequiredRole entries
       const roleEntries = requiredRole.map((role) => ({
         eventId: event.id,
         role,
       }));
-
       await db.RequiredRole.bulkCreate(roleEntries);
+
+      // Find all users with these roles
+      const users = await db.User.findAll({
+        where: {
+          role: requiredRole, // Sequelize allows array for IN query
+        },
+      });
+
+      if (users.length > 0) {
+        // Create attendance records with attended = false for all these users
+        const attendanceRecords = users.map((user) => ({
+          eventId: event.id,
+          userId: user.id,
+          attended: false,
+        }));
+        await db.AttendanceSheet.bulkCreate(attendanceRecords);
+      }
     }
 
     res.status(201).json(event);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // PUT /events/:id - update event (officer only)
 router.put("/:id", authenticateCookie, officerOnly, async (req, res) => {

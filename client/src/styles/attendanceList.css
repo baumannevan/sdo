@@ -1,0 +1,50 @@
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+.attendance-title{
+  margin-top: 20px;
+  text-align: center;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.attendance-table th {
+  background-color: #5834db;
+  color: white;
+  font-weight: 600;
+}
+
+.attendance-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.attendance-status {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.attendance-table input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.loading,
+.error,
+.no-records {
+  margin-top: 20px;
+  font-style: italic;
+  color: #777;
+  text-align: center;
+}

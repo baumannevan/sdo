@@ -39,5 +39,14 @@ export default (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   });
+
+
+  User.associate = (models) => {
+    User.hasMany(models.AttendanceSheet, {
+      foreignKey: "userId",
+      as: "AttendanceSheets",
+    });
+  };
+
   return User;
 };

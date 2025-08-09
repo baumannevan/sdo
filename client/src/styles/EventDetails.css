@@ -44,14 +44,8 @@ button {
 
 .delete-btn,
 .cancel-rsvp-btn { background: #e74c3c; }
-.delete-btn:hover,
-.cancel-rsvp-btn:hover { background: #c0392b; }
-
-.edit-btn { background: #3498db; }
-.edit-btn:hover { background: #2980b9; }
-
 .rsvp-btn { background: #2ecc71; }
-.rsvp-btn:hover { background: #27ae60; }
+
 
 .rsvp-section {
   margin-top: 30px;
@@ -135,4 +129,16 @@ p {
   font-style: italic;
   color: #777;
   margin-top: 10px;
+}
+.toggle-buttons {
+  display: flex;
+  justify-content: center;  
+  gap: 10px;                
+  margin-top: 20px;
+  margin-bottom: 20px;
+  
+}
+
+.toggle-buttons button {
+  background-color:#27ae60;
 }

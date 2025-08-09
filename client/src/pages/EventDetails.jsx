@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import "../styles/EventDetails.css";
 import TopNav from "../components/topNav";
 import EditEventModal from "../components/editEvent.jsx";
+import AttendanceList from "../components/AttendanceList.jsx";
 
 export default function EventDetails() {
   const { id } = useParams(); // get :id from URL
@@ -13,6 +14,7 @@ export default function EventDetails() {
   const navigate = useNavigate();
   const [editingRSVP, setEditingRSVP] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [viewMode, setViewMode] = useState("attendance"); // "attendance" or "rsvp"
 
   const {
     selectedEvent,
@@ -23,7 +25,7 @@ export default function EventDetails() {
     updateEvent,
     setSelectedEvent,
   } = useEvents();
-  
+
   const {
     rsvpList,
     userRsvp,
@@ -34,17 +36,17 @@ export default function EventDetails() {
   } = useRSVP();
 
   useEffect(() => {
-    fetchEventById(id); // fetch event when page loads
-    fetchRSVPs(id); // fetch RSVP list
+    fetchEventById(id);
+    fetchRSVPs(id);
   }, [id, fetchEventById, fetchRSVPs]);
 
   const handleRSVP = async (response) => {
     await createRSVP(id, response);
     fetchRSVPs(id);
-    setEditingRSVP(false); // hide RSVP form again
+    setEditingRSVP(false);
   };
 
-  if (loading || rsvpLoading || userRsvp == null) { // catches null and undefined
+  if (loading || rsvpLoading || userRsvp == null) {
     return <p>Loading event details...</p>;
   }
   if (error) return <p>Error: {error}</p>;
@@ -82,7 +84,7 @@ export default function EventDetails() {
             <hr />
             <h2>RSVP</h2>
 
-            {userRsvp.response == 'No Response'|| editingRSVP ? (
+            {userRsvp.response === "No Response" || editingRSVP ? (
               <>
                 <p>Will you be attending this event?</p>
                 <div className="rsvp-buttons">
@@ -151,8 +153,33 @@ export default function EventDetails() {
               </button>
             </div>
 
-            {/* RSVP List Table */}
-            {selectedEvent.rsvp_required && (
+            {/* View Mode Toggle Buttons */}
+           <div className="toggle-buttons">
+              {!selectedEvent.requiredRoles && (
+                <button
+                className={`edit-btn ${viewMode === "attendance" ? "active" : ""}`}
+                onClick={() => setViewMode("attendance")}
+                type="button"
+                >
+                  Attendance
+                </button>
+              )}
+              
+              {selectedEvent.rsvp_required && (
+                <button
+                  className={`edit-btn ${viewMode === "rsvp" ? "active" : ""}`}
+                  onClick={() => setViewMode("rsvp")}
+                  type="button"
+                >
+                  RSVP Responses
+                </button>
+              )}
+            </div>
+
+            {/* Conditionally show Attendance or RSVP */}
+            {viewMode === "attendance" && <AttendanceList eventId={id} />}
+
+            {viewMode === "rsvp" && selectedEvent.rsvp_required && (
               <>
                 <h2 className="rsvp-list-title">RSVP Responses</h2>
                 <table className="rsvp-table">

@@ -47,7 +47,6 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("formData: ", formData)
       await createEvent(formData);
       onClose();
     } catch (err) {
