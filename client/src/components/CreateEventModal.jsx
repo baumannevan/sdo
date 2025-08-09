@@ -9,6 +9,7 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
     date: "",
     location: "",
     requiredRole: [],
+    requires_rsvp: false,  // added here
   });
 
   if (!isOpen) return null; 
@@ -17,31 +18,31 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox" && name === "requiredRole") {
-      // For checkboxes, toggle value in the array
       setFormData((prev) => {
         if (checked) {
-          // Add role
           return {
             ...prev,
             requiredRole: [...prev.requiredRole, value],
           };
         } else {
-          // Remove role
           return {
             ...prev,
             requiredRole: prev.requiredRole.filter((r) => r !== value),
           };
         }
       });
+    } else if (type === "checkbox" && name === "requires_rsvp") {
+      setFormData((prev) => ({
+        ...prev,
+        requires_rsvp: checked,
+      }));
     } else {
-      // For other inputs (text, date, textarea)
       setFormData((prev) => ({
         ...prev,
         [name]: value,
       }));
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +53,7 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
       console.error("Error creating event:", err);
     }
   };
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -77,8 +79,19 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
             <input type="text" name="location" value={formData.location} onChange={handleChange} required />
           </label>
 
+          <label className="rsvp-checkbox-label">
+          Requires RSVP
+          <input
+            type="radio"
+            name="requires_rsvp"
+            checked={formData.requires_rsvp}
+            onChange={handleChange}
+          />
+        </label>
+
           <label>
             <div className="role-checkboxes">
+              <p>Required Roles: </p>
               {["Officer", "Intermediate Member", "Associate Member"].map((role) => (
                 <label key={role} className="role-checkbox-label">
                   <input
@@ -98,7 +111,6 @@ export default function CreateEventModal({ isOpen, onClose, createEvent }) {
             <button type="button" className="cancel-btn" onClick={onClose}>Cancel</button>
             <button type="submit" className="create-btn">Create Event</button>
           </div>
-
         </form>
       </div>
     </div>

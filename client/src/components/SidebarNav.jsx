@@ -16,5 +16,5 @@ export default function SidebarNav() {
         <h2>People</h2>
       </Link>
     </div>
-  );
+  );e
 }

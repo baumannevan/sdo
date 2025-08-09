@@ -69,3 +69,18 @@
   width: 16px;
   height: 16px;
 }
+
+.rsvp-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.rsvp-checkbox-label input[type="radio"] {
+  margin-left: 30px;
+  width: 16px;
+  height: 16px;
+
+}

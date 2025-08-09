@@ -8,6 +8,7 @@ export default function EditEventModal({ isOpen, onClose, eventToEdit, updateEve
     date: "",
     location: "",
     requiredRole: [],
+    requires_rsvp: false,  // <-- added here
   });
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function EditEventModal({ isOpen, onClose, eventToEdit, updateEve
         date: eventToEdit.date?.split("T")[0] || "",
         location: eventToEdit.location || "",
         requiredRole: eventToEdit.requiredRole || [],
+        requires_rsvp: eventToEdit.requires_rsvp || false,  // <-- initialize from eventToEdit
       });
     }
   }, [eventToEdit]);
@@ -41,6 +43,11 @@ export default function EditEventModal({ isOpen, onClose, eventToEdit, updateEve
           };
         }
       });
+    } else if (type === "checkbox" && name === "requires_rsvp") {
+      setFormData((prev) => ({
+        ...prev,
+        requires_rsvp: checked,
+      }));
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -85,8 +92,20 @@ export default function EditEventModal({ isOpen, onClose, eventToEdit, updateEve
             <input type="text" name="location" value={formData.location} onChange={handleChange} required />
           </label>
 
+          {/* requires_rsvp checkbox */}
+          <label className="rsvp-checkbox-label">
+            Requires RSVP
+            <input
+              type="radio"
+              name="requires_rsvp"
+              checked={formData.requires_rsvp}
+              onChange={handleChange}
+            />
+          </label>
+
           <label>
             <div className="role-checkboxes">
+              <p>Required Roles: </p>
               {["Officer", "Intermediate Member", "Associate Member"].map((role) => (
                 <label key={role} className="role-checkbox-label">
                   <input
@@ -102,11 +121,11 @@ export default function EditEventModal({ isOpen, onClose, eventToEdit, updateEve
             </div>
           </label>
 
+
           <div className="modal-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>Cancel</button>
             <button type="submit" className="create-btn">Update Event</button>
           </div>
-
         </form>
       </div>
     </div>
