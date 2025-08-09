@@ -8,7 +8,9 @@ export default function SidebarNav() {
       <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
         <h2>Events</h2>
       </Link>
-      <h2>Required For Me</h2>
+      <Link to="/RequiredForMe" style={{ textDecoration: "none", color: "inherit" }}>
+        <h2>Required For Me</h2>
+      </Link>
       <h2>Compliance</h2>
       <Link to="/people" style={{ textDecoration: "none", color: "inherit" }}>
         <h2>People</h2>
