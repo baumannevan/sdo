@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../styles/topNav.css";
 
 const TopNav = () => (
     <div className="top-nav">
         <div className="logo">ΣΔΩ</div>
-        <button type="button" className="profile">
+        <button type="button" className="profile-link">
             <Link to="/profile">Profile</Link>
         </button>
     </div>

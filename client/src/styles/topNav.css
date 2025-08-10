@@ -12,9 +12,9 @@
     
 }
 
-.profile {
-    width: fit-content;
-    height: fit-content;
+.profile-link {
+    width: fit-content !important;
+    height: fit-content !important;
 }
 
 .logo {
