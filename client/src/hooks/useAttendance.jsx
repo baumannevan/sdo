@@ -22,11 +22,9 @@ export default function useAttendance(eventId) {
     setIsLoading(true);
     setError(null);
     try {
-      console.log(`[useAttendance] GET /api/attendance/${eventId}`);
       const res = await api.get(`attendance/${eventId}`);
       // ensure array
       const data = Array.isArray(res.data) ? res.data : [res.data];
-      console.log("[useAttendance] response:", data);
       setAttendanceRecords(data);
     } catch (err) {
       console.error("[useAttendance] fetch error:", err);
@@ -41,7 +39,6 @@ export default function useAttendance(eventId) {
     async ({ eventId: evId, userId, attended }) => {
       setError(null);
       try {
-        console.log("[useAttendance] POST /api/attendance", { evId, userId, attended });
         const res = await api.post("attendance", { eventId: evId, userId, attended });
         await fetchAttendance();
         return res.data;
@@ -59,7 +56,6 @@ export default function useAttendance(eventId) {
     async ({ eventId: evId, userId, attended }) => {
       setError(null);
       try {
-        console.log("[useAttendance] PUT /api/attendance", { evId, userId, attended });
         const res = await api.put("attendance", { eventId: evId, userId, attended });
         await fetchAttendance();
         return res.data;

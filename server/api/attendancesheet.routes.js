@@ -63,8 +63,6 @@ router.get("/:eventId", authenticateCookie, async (req, res) => {
   const userId = req.user.id;
   const userRole = req.user.role;
 
-  console.log("/n/n/n/n here!!!!")
-
   try {
     if (userRole === "Officer") {
       // Officer: get all attendance for the event
