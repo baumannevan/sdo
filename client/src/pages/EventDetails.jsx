@@ -155,7 +155,7 @@ export default function EventDetails() {
 
             {/* View Mode Toggle Buttons */}
            <div className="toggle-buttons">
-              {!selectedEvent.requiredRoles && (
+              {selectedEvent.requiredRoles[0] && (
                 <button
                 className={`edit-btn ${viewMode === "attendance" ? "active" : ""}`}
                 onClick={() => setViewMode("attendance")}
